@@ -5,34 +5,36 @@
   <title>Midnight Club — MEMBER ID</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet" />
 </head>
 <body class="mc-body">
   <div class="mc-hero-bg" style="opacity: 0.3;"></div>
 
-  <main class="mc-page mc-spacer-top" style="padding-top: 120px;">
-    <div class="mc-page-title">Solicitud de ID</div>
-
-    <form action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST">
-      <input type="hidden" name="_next" value="success.html">
-
-      <input type="text" name="nombre" class="mc-input" placeholder="Nombre Completo" required autocomplete="name"/>
+  <main class="mc-page">
+    <div class="mc-content-spacer" style="padding-top: 100px;">
       
-      <input type="text" name="nacimiento" class="mc-input" placeholder="Fecha de Nacimiento" onfocus="(this.type='date')" onblur="(this.type='text')" required />
-      
-      <input type="text" name="instagram" class="mc-input" placeholder="Instagram (@usuario)" required />
-      <input type="tel" name="telefono" class="mc-input" placeholder="WhatsApp" required autocomplete="tel"/>
-      <input type="email" name="email" class="mc-input" placeholder="Email" required autocomplete="email"/>
+      <div class="mc-title-page">Solicitud de ID</div>
 
-      <button type="submit" class="mc-btn-submit">ENVIAR</button>
-    </form>
+      <form action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST">
+        <input type="hidden" name="_next" value="success.html">
+
+        <input type="text" name="nombre" class="mc-input" placeholder="NOMBRE COMPLETO" required />
+        <input type="text" name="nacimiento" class="mc-input" placeholder="FECHA DE NACIMIENTO (DD/MM/AAAA)" onfocus="(this.type='date')" required />
+        <input type="text" name="instagram" class="mc-input" placeholder="INSTAGRAM (@USUARIO)" required />
+        <input type="tel" name="telefono" class="mc-input" placeholder="WHATSAPP" required />
+        <input type="email" name="email" class="mc-input" placeholder="EMAIL" required />
+
+        <button type="submit" class="mc-btn-submit">ENVIAR</button>
+      </form>
+
+    </div>
   </main>
 
   <nav class="mc-nav">
     <ul class="mc-nav-list">
       <li class="mc-nav-item"><a href="index.html" class="mc-nav-link">Inicio</a></li>
       <li class="mc-nav-item"><a href="accesos.html" class="mc-nav-link">Accesos</a></li>
-      <li class="mc-nav-item"><a href="members.html" class="mc-nav-link active">ID</a></li>
+      <li class="mc-nav-item"><a href="members.html" class="mc-nav-link active">Members</a></li>
       <li class="mc-nav-item"><a href="carta.html" class="mc-nav-link">Carta</a></li>
     </ul>
   </nav>
