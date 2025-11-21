@@ -79,7 +79,9 @@ body {
   text-shadow: 0 0 14px rgba(232, 55, 47, 0.8);
 }
 
+/* Ocultamos el tagline para que no duplique el de la imagen */
 .mc-tagline {
+  display: none;
   font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -196,7 +198,7 @@ body {
   color: rgba(255, 255, 255, 0.78);
 }
 
-/* Responsive */
+/* Desktop */
 
 @media (min-width: 768px) {
   .mc-hero {
@@ -213,5 +215,14 @@ body {
   .mc-card {
     flex: 1;
     max-width: none;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 767px) {
+  .mc-hero {
+    padding-top: 48px;
+    background-position: center top;
   }
 }
