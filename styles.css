@@ -45,8 +45,9 @@ body {
   margin: 0 auto;
   border-radius: 0;
   
-  /* Padding optimizado para móvil */
-  padding-top: calc(220px + env(safe-area-inset-top)); 
+  /* PADDING CLAVE: Dejamos 240px de espacio arriba para que se vea 
+     el logo "MIDNIGHT CLUB" y el texto "MC-SS26" de la propia FOTO. */
+  padding-top: calc(240px + env(safe-area-inset-top)); 
   padding-right: 16px;
   padding-bottom: 40px;
   padding-left: 16px;
@@ -57,9 +58,9 @@ body {
   background-image: 
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.5) 40%,
-      rgba(0, 0, 0, 0.95) 70%,
+      rgba(0, 0, 0, 0) 0%,        /* Totalmente transparente arriba para ver el logo de la foto */
+      rgba(0, 0, 0, 0.5) 40%,     /* Empieza a oscurecerse en el cuello */
+      rgba(0, 0, 0, 0.95) 70%,    /* Oscuro detrás de las tarjetas */
       #000 100%
     ),
     url("hero.jpg");
@@ -72,31 +73,9 @@ body {
 /* Header */
 
 .mc-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding-top: max(20px, env(safe-area-inset-top));
-  z-index: 10;
-}
-
-.mc-logo {
-  display: none; 
-}
-
-.mc-tagline {
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mc-red-soft);
-  font-weight: 600;
-  background: rgba(0, 0, 0, 0.3);
-  padding: 4px 12px;
-  border-radius: 20px;
-  backdrop-filter: blur(2px);
+  /* SOLUCIÓN: Ocultamos todo el texto HTML del header.
+     Ahora solo se verá lo que esté dibujado en hero.jpg */
+  display: none;
 }
 
 /* Bloque accesos */
@@ -125,7 +104,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px; /* Un poco más de aire entre tarjetas */
+  gap: 20px;
   align-items: stretch;
   justify-content: center;
 }
@@ -134,29 +113,25 @@ body {
   background: rgba(10, 5, 5, 0.75);
   border-radius: 24px;
   border: 1px solid var(--mc-border-soft);
-  padding: 8px; /* Reducimos padding del contenedor para dar protagonismo al botón */
+  padding: 8px; 
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin: 0 auto;
   width: 100%;
   backdrop-filter: blur(8px);
-  
-  /* Sutil animación al aparecer */
   transition: transform 0.2s ease;
 }
 
-/* NUEVO ESTILO DE CABECERA (BOTÓN) */
+/* BOTÓN GRANDE (HEADER DE LA CARD) */
 .mc-card-header {
-  display: block; /* Para que funcione como bloque completo */
+  display: block;
   background: rgba(185, 44, 37, 0.15);
   border-radius: 18px;
   border: 1px solid var(--mc-border-soft);
-  padding: 18px 10px; /* Más alto para ser fácil de tocar */
+  padding: 18px 10px;
   text-align: center;
-  text-decoration: none; /* Quitar subrayado de enlace */
-  
-  /* Transiciones para interacción */
+  text-decoration: none;
   transition: 
     background-color 0.2s ease, 
     border-color 0.2s ease,
@@ -173,7 +148,7 @@ body {
   transition: color 0.2s ease;
 }
 
-/* Efectos de interacción (Hover y Active) */
+/* Efectos de interacción */
 .mc-card-header:hover {
   background: rgba(232, 55, 47, 0.25);
   border-color: var(--mc-red);
@@ -182,7 +157,7 @@ body {
 }
 
 .mc-card-header:active {
-  transform: scale(0.98); /* Efecto de presión */
+  transform: scale(0.98);
   background: rgba(232, 55, 47, 0.35);
 }
 
@@ -190,7 +165,7 @@ body {
 
 .mc-card-list {
   list-style: none;
-  padding: 0 10px 10px 10px; /* Un poco de padding abajo */
+  padding: 0 10px 10px 10px;
   margin: 0;
   font-size: 15px;
   text-align: center;
@@ -203,7 +178,7 @@ body {
 
 .mc-card-list li::before {
   content: "• ";
-  color: var(--mc-red-soft); /* Punto rojo suave */
+  color: var(--mc-red-soft);
   margin-right: 4px;
 }
 
@@ -227,16 +202,15 @@ body {
 
   .mc-hero {
     border-radius: 30px;
-    padding: 300px 40px 60px;
+    /* Más espacio en PC para ver la imagen completa */
+    padding: 300px 40px 60px; 
     border: 1px solid rgba(255, 255, 255, 0.04);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
   }
   
   .mc-header {
-    position: relative;
-    top: auto;
-    left: auto;
-    padding-top: 0;
+    /* Seguimos ocultando el header en PC porque la imagen ya tiene el logo */
+    display: none; 
   }
 
   .mc-cards {
@@ -246,7 +220,7 @@ body {
   }
 
   .mc-card {
-    padding: 20px; /* Restauramos padding normal en PC */
+    padding: 20px;
     flex: 1;
     max-width: 340px;
   }
