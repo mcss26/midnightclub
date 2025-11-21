@@ -34,64 +34,69 @@ body {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  padding: 16px;
+  padding: 0;
 }
 
 /* Hero / contenedor principal */
 
 .mc-hero {
-  max-width: 1280px;
   width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
-  border-radius: 30px;
+  border-radius: 0;
   
-  /* CAMBIO 1: Aumentamos el padding superior a 260px para empujar 
-     las tarjetas hacia abajo y dejar ver el logo de la foto */
-  padding: 260px 16px 40px;
+  /* Padding optimizado para móvil */
+  padding-top: calc(220px + env(safe-area-inset-top)); 
+  padding-right: 16px;
+  padding-bottom: 40px;
+  padding-left: 16px;
+
+  border: none;
+  box-shadow: none;
   
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
-  
-  /* CAMBIO 2: Invertimos el orden. Primero el gradiente, luego la foto.
-     También ajustamos el gradiente para que sea transparente arriba */
   background-image: 
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0) 0%,    /* Transparente arriba para ver el logo */
-      rgba(0, 0, 0, 0.8) 60%, /* Se oscurece bajando */
-      #000 100%               /* Negro total abajo */
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.5) 40%,
+      rgba(0, 0, 0, 0.95) 70%,
+      #000 100%
     ),
     url("hero.jpg");
     
   background-size: cover, cover;
-  background-position: center top; /* Aseguramos que la foto empiece arriba */
+  background-position: center top;
   background-repeat: no-repeat;
 }
 
 /* Header */
 
 .mc-header {
-  /* CAMBIO 3: Ocultamos este bloque para que no se superponga 
-     con el texto que ya trae la imagen de fondo */
-  display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-top: max(20px, env(safe-area-inset-top));
+  z-index: 10;
 }
 
-/* Nota: Dejamos los estilos por si alguna vez quieres volver a activarlo, 
-   pero con display: none arriba, esto no se verá. */
 .mc-logo {
-  font-size: clamp(24px, 4vw, 40px);
-  font-weight: 700;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--mc-red);
-  text-shadow: 0 0 14px rgba(232, 55, 47, 0.8);
+  display: none; 
 }
 
 .mc-tagline {
-  font-size: 14px;
+  font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--mc-red-soft);
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  backdrop-filter: blur(2px);
 }
 
 /* Bloque accesos */
@@ -99,18 +104,19 @@ body {
 .mc-access {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
   align-items: center;
 }
 
 .mc-access-heading {
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--mc-red); /* Color rojo para "ACCESOS" */
-  margin: 0;
-  text-shadow: 0 0 10px rgba(0,0,0,0.8); /* Sombra para mejor lectura */
+  color: var(--mc-text);
+  opacity: 0.9;
+  margin-bottom: 4px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 /* Cards */
@@ -119,110 +125,134 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px; /* Un poco más de aire entre tarjetas */
   align-items: stretch;
   justify-content: center;
 }
 
 .mc-card {
-  background: rgba(0, 0, 0, 0.6); /* Un poco más oscuro para contraste */
-  border-radius: 30px;
-  border: 2px solid var(--mc-border-soft);
-  padding: 20px 24px 22px;
-  box-shadow: 0 0 6.5px 0 inset #000000;
+  background: rgba(10, 5, 5, 0.75);
+  border-radius: 24px;
+  border: 1px solid var(--mc-border-soft);
+  padding: 8px; /* Reducimos padding del contenedor para dar protagonismo al botón */
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 340px;
+  gap: 12px;
   margin: 0 auto;
-  backdrop-filter: blur(4px); /* Efecto borroso detrás de la tarjeta */
+  width: 100%;
+  backdrop-filter: blur(8px);
+  
+  /* Sutil animación al aparecer */
+  transition: transform 0.2s ease;
 }
 
+/* NUEVO ESTILO DE CABECERA (BOTÓN) */
 .mc-card-header {
-  background: rgba(185, 44, 37, 0.2);
-  border-radius: 30px;
-  border: 2px solid var(--mc-border-soft);
-  padding: 14px 10px;
+  display: block; /* Para que funcione como bloque completo */
+  background: rgba(185, 44, 37, 0.15);
+  border-radius: 18px;
+  border: 1px solid var(--mc-border-soft);
+  padding: 18px 10px; /* Más alto para ser fácil de tocar */
   text-align: center;
+  text-decoration: none; /* Quitar subrayado de enlace */
+  
+  /* Transiciones para interacción */
+  transition: 
+    background-color 0.2s ease, 
+    border-color 0.2s ease,
+    transform 0.1s ease,
+    box-shadow 0.2s ease;
 }
 
 .mc-card-header h2 {
   margin: 0;
-  font-size: 24px;
-  letter-spacing: -0.04em;
+  font-size: 22px;
+  letter-spacing: -0.03em;
   color: var(--mc-red);
+  font-weight: 700;
+  transition: color 0.2s ease;
 }
 
+/* Efectos de interacción (Hover y Active) */
+.mc-card-header:hover {
+  background: rgba(232, 55, 47, 0.25);
+  border-color: var(--mc-red);
+  box-shadow: 0 0 15px rgba(232, 55, 47, 0.2);
+  cursor: pointer;
+}
+
+.mc-card-header:active {
+  transform: scale(0.98); /* Efecto de presión */
+  background: rgba(232, 55, 47, 0.35);
+}
+
+/* Lista */
+
 .mc-card-list {
-  list-style: disc;
-  padding-left: 24px;
+  list-style: none;
+  padding: 0 10px 10px 10px; /* Un poco de padding abajo */
   margin: 0;
-  font-size: 16px;
+  font-size: 15px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .mc-card-list li {
-  line-height: 1.6;
+  margin-bottom: 4px;
 }
 
-/* CTA */
-
-.mc-cta {
-  align-self: center;
-  margin-top: 4px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 24px;
-  border-radius: 30px;
-  background: rgba(232, 55, 47, 0.18);
-  border: 2px solid var(--mc-lime);
-  font-size: 18px;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-decoration: none;
-  color: var(--mc-lime);
-  box-shadow: 0 0 6.5px 0 inset #000000;
-  transition:
-    transform 0.12s ease-out,
-    box-shadow 0.12s ease-out,
-    background-color 0.12s ease-out;
-}
-
-.mc-cta:hover {
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 10px rgba(205, 251, 62, 0.6),
-    0 0 6.5px 0 inset #000000;
-  background-color: rgba(232, 55, 47, 0.3);
+.mc-card-list li::before {
+  content: "• ";
+  color: var(--mc-red-soft); /* Punto rojo suave */
+  margin-right: 4px;
 }
 
 /* Nota */
 
 .mc-note {
-  margin: 8px 0 0;
-  font-size: 14px;
+  margin: 12px 0 40px;
+  font-size: 13px;
   text-align: center;
-  max-width: 540px;
-  color: rgba(255, 255, 255, 0.78);
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0 20px;
+  line-height: 1.4;
 }
 
-/* Responsive */
+/* Desktop (Pantallas grandes) */
 
 @media (min-width: 768px) {
+  .mc-page {
+    padding: 16px;
+  }
+
   .mc-hero {
-    /* En pantallas grandes ajustamos el padding si es necesario */
-    padding: 300px 40px 60px; 
+    border-radius: 30px;
+    padding: 300px 40px 60px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+  }
+  
+  .mc-header {
+    position: relative;
+    top: auto;
+    left: auto;
+    padding-top: 0;
   }
 
   .mc-cards {
     flex-direction: row;
     gap: 24px;
     max-width: 1080px;
-    margin: 0 auto;
   }
 
   .mc-card {
+    padding: 20px; /* Restauramos padding normal en PC */
     flex: 1;
-    max-width: none;
+    max-width: 340px;
+  }
+  
+  .mc-card-list {
+    text-align: left;
+    padding-left: 20px;
   }
 }
