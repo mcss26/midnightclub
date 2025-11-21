@@ -44,32 +44,40 @@ body {
   width: 100%;
   margin: 0 auto;
   border-radius: 30px;
-  padding: 20px 16px 40px;
+  
+  /* CAMBIO 1: Aumentamos el padding superior a 260px para empujar 
+     las tarjetas hacia abajo y dejar ver el logo de la foto */
+  padding: 260px 16px 40px;
+  
   border: 1px solid rgba(255, 255, 255, 0.04);
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
-  background-image: url("hero.jpg"),
+  
+  /* CAMBIO 2: Invertimos el orden. Primero el gradiente, luego la foto.
+     También ajustamos el gradiente para que sea transparente arriba */
+  background-image: 
     linear-gradient(
       180deg,
-      rgba(0, 0, 0, 0.6) 0%,
-      rgba(0, 0, 0, 0.9) 55%,
-      #000 100%
-    );
+      rgba(0, 0, 0, 0) 0%,    /* Transparente arriba para ver el logo */
+      rgba(0, 0, 0, 0.8) 60%, /* Se oscurece bajando */
+      #000 100%               /* Negro total abajo */
+    ),
+    url("hero.jpg");
+    
   background-size: cover, cover;
-  background-position: center, center;
+  background-position: center top; /* Aseguramos que la foto empiece arriba */
   background-repeat: no-repeat;
 }
 
 /* Header */
 
 .mc-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 56px;
-  text-align: center;
+  /* CAMBIO 3: Ocultamos este bloque para que no se superponga 
+     con el texto que ya trae la imagen de fondo */
+  display: none;
 }
 
+/* Nota: Dejamos los estilos por si alguna vez quieres volver a activarlo, 
+   pero con display: none arriba, esto no se verá. */
 .mc-logo {
   font-size: clamp(24px, 4vw, 40px);
   font-weight: 700;
@@ -79,9 +87,7 @@ body {
   text-shadow: 0 0 14px rgba(232, 55, 47, 0.8);
 }
 
-/* Ocultamos el tagline para que no duplique el de la imagen */
 .mc-tagline {
-  display: none;
   font-size: 14px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -102,8 +108,9 @@ body {
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--mc-red);
+  color: var(--mc-red); /* Color rojo para "ACCESOS" */
   margin: 0;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8); /* Sombra para mejor lectura */
 }
 
 /* Cards */
@@ -118,7 +125,7 @@ body {
 }
 
 .mc-card {
-  background: rgba(0, 0, 0, 0.46);
+  background: rgba(0, 0, 0, 0.6); /* Un poco más oscuro para contraste */
   border-radius: 30px;
   border: 2px solid var(--mc-border-soft);
   padding: 20px 24px 22px;
@@ -128,6 +135,7 @@ body {
   gap: 20px;
   max-width: 340px;
   margin: 0 auto;
+  backdrop-filter: blur(4px); /* Efecto borroso detrás de la tarjeta */
 }
 
 .mc-card-header {
@@ -198,11 +206,12 @@ body {
   color: rgba(255, 255, 255, 0.78);
 }
 
-/* Desktop */
+/* Responsive */
 
 @media (min-width: 768px) {
   .mc-hero {
-    padding: 40px 40px 60px;
+    /* En pantallas grandes ajustamos el padding si es necesario */
+    padding: 300px 40px 60px; 
   }
 
   .mc-cards {
@@ -215,14 +224,5 @@ body {
   .mc-card {
     flex: 1;
     max-width: none;
-  }
-}
-
-/* Mobile */
-
-@media (max-width: 767px) {
-  .mc-hero {
-    padding-top: 48px;
-    background-position: center top;
   }
 }
