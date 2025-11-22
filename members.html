@@ -4,35 +4,41 @@
   <meta charset="UTF-8" />
   <title>Midnight Club — ID</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <link rel="stylesheet" href="styles.css" />
+  
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="mc-body">
+  
   <div class="mc-hero-bg" style="opacity: 0.2;"></div>
-  <main class="mc-page mc-spacer-top">
+
+  <main class="mc-page mc-spacer-top" style="padding-top: 80px;">
+    
     <h1 style="font-size: 32px; color: #fff; font-weight: 700; margin-bottom: 4px;">SOLICITAR ID</h1>
     <div style="font-size: 14px; color: #aaa; margin-bottom: 30px;">Member Request</div>
 
-    <form action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST">
+    <form action="https://formspree.io/f/xwpzvnby" method="POST">
       <input type="hidden" name="_next" value="success.html">
       
       <label class="mc-label-editorial">Nombre Completo</label>
-      <input type="text" name="nombre" class="mc-input-editorial" placeholder="Nombre y Apellido" required />
+      <input type="text" name="nombre" class="mc-input-editorial" placeholder="Nombre y Apellido" required autocapitalize="words" />
 
       <label class="mc-label-editorial">Fecha de Nacimiento</label>
-      <input type="text" name="nacimiento" class="mc-input-editorial" placeholder="DD/MM/AAAA" required />
+      <input type="tel" id="dobInput" name="nacimiento" class="mc-input-editorial" placeholder="DD/MM/AAAA" maxlength="10" required />
 
       <label class="mc-label-editorial">Instagram</label>
       <input type="text" name="instagram" class="mc-input-editorial" placeholder="@usuario" required />
 
       <label class="mc-label-editorial">WhatsApp</label>
-      <input type="tel" name="telefono" class="mc-input-editorial" placeholder="+54 9 ..." required />
+      <input type="tel" name="telefono" class="mc-input-editorial" placeholder="Ej: 387 123 4567" required />
 
       <label class="mc-label-editorial">Correo Electrónico</label>
       <input type="email" name="email" class="mc-input-editorial" placeholder="email@ejemplo.com" required />
 
       <button type="submit" class="mc-btn-editorial">ENVIAR SOLICITUD</button>
     </form>
+
   </main>
 
   <nav class="mc-nav">
@@ -43,5 +49,46 @@
       <li class="mc-nav-item"><a href="carta.html" class="mc-nav-link">Carta</a></li>
     </ul>
   </nav>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const dobInput = document.getElementById('dobInput');
+
+      dobInput.addEventListener('input', function(e) {
+        // Eliminar cualquier caracter que no sea número
+        let value = this.value.replace(/\D/g, '');
+        
+        // Limitar longitud (DDMMAAAA = 8 números)
+        if (value.length > 8) value = value.substring(0, 8);
+
+        // Formatear agregando las barras /
+        let formattedValue = '';
+        
+        if (value.length > 0) {
+          formattedValue = value.substring(0, 2);
+        }
+        if (value.length >= 3) {
+          formattedValue += '/' + value.substring(2, 4);
+        }
+        if (value.length >= 5) {
+          formattedValue += '/' + value.substring(4, 8);
+        }
+
+        this.value = formattedValue;
+      });
+
+      // Borrado inteligente (para que no se trabe al borrar la barra)
+      dobInput.addEventListener('keydown', function(e) {
+        const key = e.key;
+        if (key === 'Backspace') {
+          // Si el cursor está justo después de una barra, borrar la barra y el número anterior
+          if (this.value.endsWith('/')) {
+            // No hacemos nada especial, el input event recalculará sin el último número
+          }
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
