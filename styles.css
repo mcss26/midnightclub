@@ -46,9 +46,20 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   flex-direction: column;
 }
 
-/* Espaciador superior para respetar el logo de la foto */
+/* === ESPACIADOR HERO (Aquí está la magia para que se vea la foto) === */
 .mc-spacer-top {
-  padding-top: calc(240px + env(safe-area-inset-top));
+  /* 42vh significa el 42% de la altura de la pantalla. 
+     Esto empuja el texto hacia abajo para dejar ver la imagen. */
+  padding-top: calc(42vh + env(safe-area-inset-top));
+  
+  transition: padding-top 0.3s ease;
+}
+
+/* Para celulares muy altos (iPhone Pro Max, Ultra), bajamos más el texto */
+@media (min-height: 800px) {
+  .mc-spacer-top {
+    padding-top: calc(50vh + env(safe-area-inset-top));
+  }
 }
 
 /* Títulos de páginas internas */
@@ -100,29 +111,6 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 }
 
 .mc-separator { opacity: 0.3; }
-
-/* =========================================
-   CARTA / PRECIOS
-   ========================================= */
-.mc-menu-category { margin-bottom: 40px; width: 100%; }
-
-.mc-cat-title {
-  font-size: 20px; color: #fff; font-weight: 700;
-  margin-bottom: 15px; text-transform: uppercase;
-}
-
-.mc-menu-item {
-  display: flex;
-  justify-content: space-between; /* Alinea precio a la derecha */
-  align-items: baseline;
-  width: 100%;
-  margin-bottom: 12px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 6px;
-}
-
-.mc-item-name { font-size: 16px; color: #fff; }
-.mc-item-price { font-size: 16px; color: var(--mc-red); font-weight: 700; text-align: right; }
 
 /* =========================================
    FORMULARIOS
