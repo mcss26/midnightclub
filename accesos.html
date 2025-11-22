@@ -27,7 +27,7 @@
     </div>
 
     <div class="mc-item-row">
-      <a href="https://www.passline.com/eventos/midnight-club-2211/midnight-club" target="_blank" class="mc-item-link">
+      <a id="btn-members" class="mc-item-link">
         <h2 class="mc-item-title">Members</h2>
       </a>
       <div class="mc-item-details"><span>Sin cargo hasta 03:00</span><span class="mc-separator">|</span><span>Accesos VIP</span></div>
@@ -42,5 +42,108 @@
       <li class="mc-nav-item"><a href="carta.html" class="mc-nav-link">Carta</a></li>
     </ul>
   </nav>
+
+  <div id="mc-code-gate">
+    <div id="mc-code-card">
+      <div class="mc-gate-title">INGRESAR CÓDIGO</div>
+      
+      <input id="mc-code-input" type="text" class="mc-gate-input" placeholder="MC...." autocomplete="off" />
+      
+      <div id="mc-code-error" class="mc-gate-error"></div>
+
+      <button id="mc-code-btn" class="mc-gate-btn">CONTINUAR</button>
+      
+      <button id="mc-code-close" class="mc-gate-close">Cancelar</button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // CONFIGURACIÓN
+      const PASSLINE_URL = "https://www.passline.com/eventos/midnight-club-2211/midnight-club";
+      
+      // Tu lista completa de códigos
+      const VALID_CODES = ["MC0696","MC0924","MC1053","MC0615","MC0065","MC0308","MC0022","MC0173","MC0129","MC0328","MC0214","MC0265","MC0299","MC1013","MC0925","MC0672","MC0215","MC0521","MC1107","MC0638","MC0056","MC0923","MC0035","MC0459","MC1246","MC0352","MC0342","MC0951","MC1475","MC0400","MC0427","MC0377","MC0025","MC0540","MC0532","MC0612","MC0623","MC0964","MC0205","MC0067","MC0142","MC0012","MC0426","MC0007","MC0087","MC0533","MC0575","MC0601","MC0529","MC0619","MC0086","MC0946","MC0154","MC0261","MC0332","MC0112","MC0225","MC0033","MC0309","MC0062","MC0949","MC0100","MC0616","MC0159","MC0684","MC0281","MC0671","MC0004","MC0523","MC0351","MC0587","MC0014","MC0291","MC0801","MC1040","MC0564","MC0683","MC0016","MC0198","MC0066","MC0147","MC0077","MC0576","MC1103","MC1071","MC1025","MC0432","MC0640","MC0041","MC0440","MC0028","MC0313","MC0577","MC0144","MC0081","MC0239","MC0410","MC0531","MC0449","MC0053","MC0211","MC0424","MC0088","MC0538","MC0245","MC0207","MC1052","MC0401","MC0706","MC0689","MC0914","MC0845","MC0107","MC0008","MC1027","MC0333","MC0585","MC0043","MC0436","MC0270","MC0484","MC0569","MC0200","MC0700","MC0024","MC1205","MC0001","MC0335","MC0953","MC0481","MC0275","MC0452","MC0803","MC1203","MC0229","MC0048","MC0501","MC0420","MC0665","MC0002","MC1012","MC0135","MC0072","MC0201","MC1126","MC0204","MC1087","MC0931","MC0186","MC0315","MC0109","MC0443","MC0398","MC0174","MC0289","MC0704","MC0385","MC0534","MC0189","MC0390","MC0106","MC0349","MC0411","MC0303","MC0608","MC0115","MC0395","MC0218","MC0222","MC0179","MC0020","MC0226","MC0323","MC0046","MC0236","MC0252","MC0023","MC1017","MC0219","MC0273","MC0673","MC0292","MC0084","MC0677","MC0359","MC0580","MC0203","MC0263","MC0918","MC0044","MC1024","MC0494","MC0592","MC0097","MC0626","MC0402","MC0570","MC0827","MC1092","MC0227","MC0202","MC0387","MC0300","MC0188","MC0520","MC0304","MC0567","MC0506","MC0213","MC0595","MC0511","MC0294","MC0450","MC0362","MC0078","MC0930","MC0051","MC0011","MC0496","MC0038","MC0703","MC0620","MC0944","MC0271","MC0901","MC0032","MC0125","MC0027","MC0019","MC0082","MC0502","MC0131","MC0354","MC0234","MC1102","MC0948","MC0617","MC1026","MC0092","MC0124","MC1086","MC0253","MC0419","MC0123","MC0080","MC0208","MC0367","MC0509","MC0676","MC0064","MC0090","MC1096","MC0962","MC0701","MC0418","MC0237","MC0319","MC0393","MC1050","MC0380","MC0238","MC0403","MC0583","MC0169","MC0341","MC0018","MC0549","MC0183","MC0161","MC1085","MC0820","MC0691","MC0360","MC0455","MC0693","MC0361","MC0295","MC0235","MC0209","MC0681","MC1060","MC0288","MC1494","MC0141","MC0596","MC0283","MC0083","MC0005","MC0249","MC0116","MC0510","MC0052","MC0477","MC0458","MC0055","MC0589","MC0073","MC0037","MC0036","MC1233","MC0682","MC0305","MC0054","MC0166","MC0232","MC0667","MC0223","MC1065","MC0164","MC0039","MC0010","MC0102","MC0021","MC0416","MC1041","MC0060","MC0061","MC0365","MC0085","MC0488","MC0582","MC0699","MC0140","MC0593","MC0388","MC0274","MC0259","MC0093","MC0495","MC1070","MC0224","MC0348","MC1014","MC0371","MC0527","MC0376","MC1000","MC1106","MC0425","MC1001","MC0030","MC0917","MC0697","MC0652","MC0500","MC0678","MC0151","MC0622","MC0047","MC0257","MC0089","MC0471","MC0437","MC0490","MC0407","MC0336","MC0574","MC0069","MC0908","MC0463","MC0611","MC0247","MC0590","MC1110","MC0095","MC0318","MC0165","MC0114","MC0126","MC0015","MC0559","MC0594","MC0267","MC0662","MC0591","MC0058","MC0071","MC0050","MC0220","MC0600","MC0074","MC0168","MC0187","MC0482","MC0610","MC0057","MC0438","MC0327","MC0648","MC0103","MC0435","MC0285","MC0034","MC0630","MC0075","MC1104","MC0040","MC1108","MC0070","MC1038","MC0537","MC0251","MC0363","MC0091","MC0111","MC0221","MC1015","MC0345","MC0517","MC0101","MC1473","MC1256","MC1533","MC0292"];
+
+      const STORAGE_KEY = "mc_access_granted";
+      const TTL_HOURS = 24; // Duración del acceso en horas
+
+      // Elementos
+      const btnMembers = document.getElementById('btn-members');
+      const gate = document.getElementById('mc-code-gate');
+      const input = document.getElementById('mc-code-input');
+      const btnSubmit = document.getElementById('mc-code-btn');
+      const btnClose = document.getElementById('mc-code-close');
+      const errorMsg = document.getElementById('mc-code-error');
+
+      // Helpers
+      const norm = s => String(s || "").trim().toUpperCase();
+      const now = () => Date.now();
+
+      // Verificar si ya ingresó antes
+      function hasAccess() {
+        try {
+          const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+          if (!data || !data.ts) return false;
+          return (now() - data.ts) < (TTL_HOURS * 3600 * 1000);
+        } catch (e) { return false; }
+      }
+
+      // Validar código
+      function validate(code) {
+        return VALID_CODES.includes(norm(code));
+      }
+
+      // Abrir Passline
+      function openPassline() {
+        window.open(PASSLINE_URL, '_blank');
+      }
+
+      // Evento Click en "Members"
+      btnMembers.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (hasAccess()) {
+          openPassline(); // Si ya ingresó antes, pasa directo
+        } else {
+          gate.style.display = 'flex'; // Mostrar popup
+          input.value = '';
+          errorMsg.textContent = '';
+          setTimeout(() => input.focus(), 100);
+        }
+      });
+
+      // Click en Continuar
+      btnSubmit.addEventListener('click', () => {
+        const code = input.value;
+        if (validate(code)) {
+          // Guardar acceso
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ ok: true, ts: now() }));
+          gate.style.display = 'none';
+          openPassline();
+        } else {
+          errorMsg.textContent = "CÓDIGO INVÁLIDO";
+          // Animación de error
+          const card = document.getElementById('mc-code-card');
+          card.animate([
+            { transform: "translateX(0)" },
+            { transform: "translateX(-5px)" },
+            { transform: "translateX(5px)" },
+            { transform: "translateX(0)" }
+          ], { duration: 200 });
+        }
+      });
+
+      // Cerrar popup
+      btnClose.addEventListener('click', () => {
+        gate.style.display = 'none';
+      });
+
+      // Enter para enviar
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') btnSubmit.click();
+      });
+
+    })();
+  </script>
 </body>
 </html>
