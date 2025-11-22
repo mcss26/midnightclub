@@ -4,7 +4,9 @@
   --mc-text: #ffffff;
 }
 
-/* Reset básico */
+/* =========================================
+   RESET Y BASE
+   ========================================= */
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
@@ -17,12 +19,13 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   padding-bottom: calc(80px + env(safe-area-inset-bottom)); 
 }
 
-/* Fondo fijo (La foto) */
+/* =========================================
+   FONDO FIJO (La foto)
+   ========================================= */
 .mc-hero-bg {
   position: fixed;
   top: 0; left: 0; width: 100%; height: 100%;
   z-index: -1;
-  /* Gradiente sutil para que el texto resalte sobre la foto */
   background-image: 
     linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 60%, #000 100%),
     url("hero.jpg");
@@ -31,7 +34,9 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   background-repeat: no-repeat;
 }
 
-/* Contenedor principal */
+/* =========================================
+   LAYOUT GENERAL
+   ========================================= */
 .mc-page {
   width: 100%;
   max-width: 600px;
@@ -46,7 +51,7 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   padding-top: calc(240px + env(safe-area-inset-top));
 }
 
-/* Títulos de sección (ej: SELECCIONAR ACCESO) */
+/* Títulos de páginas internas */
 .mc-page-title {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.5);
@@ -56,10 +61,13 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   margin-top: 10px;
 }
 
-/* === MENU GIGANTE (PORTADA) === */
+/* =========================================
+   MENU GIGANTE (PORTADA)
+   ========================================= */
 .mc-menu-list {
   display: flex; flex-direction: column; gap: 24px;
 }
+
 .mc-menu-link {
   font-size: 38px; font-weight: 800;
   color: var(--mc-red);
@@ -69,26 +77,33 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 }
 .mc-menu-link:active { color: #fff; }
 
-/* === LISTAS (ACCESOS) === */
+/* =========================================
+   LISTAS (ACCESOS)
+   ========================================= */
 .mc-item-row {
   margin-bottom: 30px;
   border-bottom: 1px solid rgba(232, 55, 47, 0.3);
   padding-bottom: 15px;
 }
-.mc-item-link { text-decoration: none; display: block; }
+
+.mc-item-link { text-decoration: none; display: block; cursor: pointer; }
 
 .mc-item-title {
   font-size: 32px; font-weight: 800;
   color: var(--mc-red); margin: 0 0 8px 0;
   text-transform: uppercase; letter-spacing: -0.03em;
 }
+
 .mc-item-details {
   font-size: 14px; color: rgba(255, 255, 255, 0.7);
   display: flex; gap: 10px;
 }
+
 .mc-separator { opacity: 0.3; }
 
-/* === CARTA / PRECIOS (SOLUCIÓN DE ALINEACIÓN) === */
+/* =========================================
+   CARTA / PRECIOS
+   ========================================= */
 .mc-menu-category { margin-bottom: 40px; width: 100%; }
 
 .mc-cat-title {
@@ -98,7 +113,7 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
 .mc-menu-item {
   display: flex;
-  justify-content: space-between; /* ESTO SEPARA PRECIO Y NOMBRE */
+  justify-content: space-between; /* Alinea precio a la derecha */
   align-items: baseline;
   width: 100%;
   margin-bottom: 12px;
@@ -109,12 +124,15 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 .mc-item-name { font-size: 16px; color: #fff; }
 .mc-item-price { font-size: 16px; color: var(--mc-red); font-weight: 700; text-align: right; }
 
-/* === FORMULARIO === */
+/* =========================================
+   FORMULARIOS
+   ========================================= */
 .mc-label-editorial {
   display: block; font-size: 13px; color: #fff;
   margin-bottom: 8px; margin-top: 24px;
   opacity: 0.8;
 }
+
 .mc-input-editorial {
   background: transparent; border: none;
   border-bottom: 1px solid rgba(255,255,255,0.3);
@@ -131,7 +149,9 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   cursor: pointer;
 }
 
-/* === NAVEGACIÓN INFERIOR === */
+/* =========================================
+   NAVEGACIÓN INFERIOR
+   ========================================= */
 .mc-nav {
   position: fixed; bottom: 0; left: 0; width: 100%;
   background: #000;
@@ -139,8 +159,10 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 100;
 }
+
 .mc-nav-list { display: flex; height: 60px; list-style: none; margin: 0; padding: 0; }
 .mc-nav-item { flex: 1; }
+
 .mc-nav-link {
   display: flex; justify-content: center; align-items: center;
   height: 100%; text-decoration: none;
@@ -149,3 +171,60 @@ html, body { margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   letter-spacing: 0.1em; font-weight: 700;
 }
 .mc-nav-link.active { color: var(--mc-red); }
+
+/* =========================================
+   ACCESS GATE (POPUP PARA MEMBERS)
+   ========================================= */
+#mc-code-gate {
+  display: none; /* Oculto por defecto */
+  position: fixed; top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 9999;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(10px);
+}
+
+#mc-code-card {
+  width: min(90vw, 400px);
+  background: #0a0a0a;
+  border: 1px solid var(--mc-red);
+  padding: 30px 24px;
+  box-shadow: 0 0 40px rgba(232, 55, 47, 0.15);
+  text-align: center;
+}
+
+.mc-gate-title {
+  font-size: 20px; font-weight: 800; 
+  color: #fff; letter-spacing: -0.02em; 
+  text-transform: uppercase; margin-bottom: 20px;
+}
+
+.mc-gate-input {
+  width: 100%; padding: 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+  color: #fff; font-size: 24px;
+  text-align: center; text-transform: uppercase;
+  letter-spacing: 0.1em; font-weight: 700;
+  outline: none; margin-bottom: 10px;
+}
+.mc-gate-input:focus { border-bottom-color: var(--mc-red); }
+
+.mc-gate-error {
+  min-height: 20px; font-size: 12px; color: var(--mc-red);
+  margin-bottom: 10px; font-weight: 600;
+}
+
+.mc-gate-btn {
+  width: 100%; padding: 16px;
+  background: #fff; color: #000;
+  border: none; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  cursor: pointer; margin-top: 10px;
+}
+
+.mc-gate-close {
+  margin-top: 20px; background: none; border: none;
+  color: #666; font-size: 12px; text-decoration: underline; cursor: pointer;
+}
