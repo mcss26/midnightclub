@@ -8,6 +8,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet" />
   
   <link rel="stylesheet" href="styles.css" />
+  
+  <style>
+    /* Estilo específico para el mensaje de error de edad */
+    .error-text {
+      color: var(--mc-red);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 20px;
+      text-align: center;
+      display: none; /* Oculto por defecto */
+      border: 1px solid var(--mc-red);
+      padding: 12px;
+      background: rgba(232, 55, 47, 0.1);
+    }
+  </style>
 </head>
 <body class="mc-body">
   
@@ -18,7 +34,8 @@
     <h1 style="font-size: 32px; color: #fff; font-weight: 700; margin-bottom: 4px;">SOLICITAR ID</h1>
     <div style="font-size: 14px; color: #aaa; margin-bottom: 30px;">Member Request</div>
 
-    <form action="https://formspree.io/f/xwpzvnby" method="POST">
+    <form id="memberForm" action="https://formspree.io/f/TU_CODIGO_AQUI" method="POST">
+      
       <input type="hidden" name="_next" value="success.html">
       
       <label class="mc-label-editorial">Nombre Completo</label>
@@ -35,6 +52,17 @@
 
       <label class="mc-label-editorial">Correo Electrónico</label>
       <input type="email" name="email" class="mc-input-editorial" placeholder="email@ejemplo.com" required />
+
+      <div style="margin-top: 30px; display: flex; align-items: flex-start; gap: 12px;">
+        <input type="checkbox" id="legalCheck" required style="accent-color: var(--mc-red); width: 20px; height: 20px; margin-top: 0;">
+        <label for="legalCheck" style="color: rgba(255,255,255,0.6); font-size: 12px; line-height: 1.4;">
+          Declaro ser mayor de 18 años, acepto los <a href="legales.html" target="_blank" style="color: #fff; text-decoration: underline;">Términos y Condiciones</a> y doy mi consentimiento para el tratamiento de datos.
+        </label>
+      </div>
+
+      <div id="ageError" class="error-text">
+        🚫 Debes ser mayor de 18 años para solicitar el Member ID.
+      </div>
 
       <button type="submit" class="mc-btn-editorial">ENVIAR SOLICITUD</button>
     </form>
@@ -53,38 +81,65 @@
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const dobInput = document.getElementById('dobInput');
+      const form = document.getElementById('memberForm');
+      const errorDiv = document.getElementById('ageError');
 
+      // 1. Máscara de Fecha (Agrega las barras / solas)
       dobInput.addEventListener('input', function(e) {
-        // Eliminar cualquier caracter que no sea número
-        let value = this.value.replace(/\D/g, '');
-        
-        // Limitar longitud (DDMMAAAA = 8 números)
+        let value = this.value.replace(/\D/g, ''); // Solo números
         if (value.length > 8) value = value.substring(0, 8);
-
-        // Formatear agregando las barras /
-        let formattedValue = '';
         
-        if (value.length > 0) {
-          formattedValue = value.substring(0, 2);
-        }
-        if (value.length >= 3) {
-          formattedValue += '/' + value.substring(2, 4);
-        }
-        if (value.length >= 5) {
-          formattedValue += '/' + value.substring(4, 8);
-        }
-
+        let formattedValue = '';
+        if (value.length > 0) formattedValue = value.substring(0, 2);
+        if (value.length >= 3) formattedValue += '/' + value.substring(2, 4);
+        if (value.length >= 5) formattedValue += '/' + value.substring(4, 8);
+        
         this.value = formattedValue;
       });
 
-      // Borrado inteligente (para que no se trabe al borrar la barra)
+      // Permitir borrar sin que se trabe en las barras
       dobInput.addEventListener('keydown', function(e) {
-        const key = e.key;
-        if (key === 'Backspace') {
-          // Si el cursor está justo después de una barra, borrar la barra y el número anterior
-          if (this.value.endsWith('/')) {
-            // No hacemos nada especial, el input event recalculará sin el último número
-          }
+        if (e.key === 'Backspace' && this.value.endsWith('/')) {
+          // Comportamiento nativo
+        }
+      });
+
+      // 2. Validar Edad al Enviar
+      form.addEventListener('submit', function(e) {
+        const dobValue = dobInput.value;
+        
+        // Validar longitud completa
+        if (dobValue.length !== 10) {
+          e.preventDefault();
+          alert("Por favor ingresa la fecha completa: DD/MM/AAAA");
+          return;
+        }
+
+        // Calcular edad
+        const parts = dobValue.split('/');
+        const day = parseInt(parts[0], 10);
+        const month = parseInt(parts[1], 10) - 1;
+        const year = parseInt(parts[2], 10);
+        
+        const birthDate = new Date(year, month, day);
+        const today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+        
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+
+        // Bloquear si es menor
+        if (age < 18) {
+          e.preventDefault();
+          errorDiv.style.display = 'block';
+          // Scroll hacia abajo para ver el error
+          window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        } else {
+          errorDiv.style.display = 'none';
+          // El formulario se envía
         }
       });
     });
